@@ -19,13 +19,13 @@
 require_recipe "percona-install"
 
 case node["platform"]
-when "redhat","centos","fedora","suse", "amazon", "scientific"
+when "redhat","oracle","centos","fedora","suse", "amazon", "scientific"
   execute "remove conflicting mysql-libs" do
     command "rpm -e --nodeps mysql-libs"
     only_if "rpm -qa | grep mysql-libs"
   end
   
-  %w(Percona-Server-server-55 Percona-Server-devel-55 Percona-Server-shared-compat).each do |p|
+  %w(Percona-Server-server-#{node['percona-install']['version']} Percona-Server-devel-#{node['percona-install']['version']} Percona-Server-shared-#{node['percona-install']['version']}).each do |p|
     package p
   end
 when "debian","ubuntu"
@@ -33,7 +33,7 @@ when "debian","ubuntu"
     command "apt-get update"
   end
 
-  %w(percona-server-server-5.5 libmysqlclient-dev).each do |p|
+  %w(percona-server-server-#{node['percona-install']['version']} libmysqlclient-dev).each do |p|
     package p
   end
   

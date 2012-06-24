@@ -21,3 +21,9 @@ default['percona-install']['plugins_version'] = "0.9.0"
 default['percona-install']['plugins_sha'] = "04a7ace4c345ddc2a6b26cae0f6252533663d809008f284919b207b9a00e4a44"
 default['percona-install']['plugins_path'] = "/opt/pmp"
 default['percona-install']['plugins_nagios'] = "/opt/pmp/nagios/bin"
+case node["platform"]
+  when "centos", "redhat", "oracle", "fedora", "suse", "scientific", "amazon"
+    default['percona-install']['version'] = "55"
+  else
+    default['percona-install']['version'] = "5.5"
+end

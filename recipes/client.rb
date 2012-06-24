@@ -19,14 +19,14 @@
 require_recipe "percona-install"
 
 case node["platform"]
-when "redhat","centos","fedora","suse", "amazon", "scientific"
-  package "Percona-Server-client-55"
-  package "Percona-Server-devel-55"
+when "redhat","oracle","centos","fedora","suse", "amazon", "scientific"
+  package "Percona-Server-client-#{node['percona-install']['version']}"
+  package "Percona-Server-devel-#{node['percona-install']['version']}"
 when "debian","ubuntu"
   execute "update apt" do
     command "apt-get update"
   end
 
-  package "percona-server-client-5.5"
+  package "percona-server-client#{node['percona-install']['version']}"
   package "libmysqlclient-dev"
 end
